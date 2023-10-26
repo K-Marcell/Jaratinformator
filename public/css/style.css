@@ -1,0 +1,106 @@
+.customnav li {
+    list-style: none;
+    margin-right: 30px;
+}
+
+header {
+    background: #977b0031;
+}
+
+.customnav li div a {
+    text-decoration: none;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+
+}
+
+.customnav li div .decoration {
+    border: 3px solid #000000;
+    margin-top: -12px;
+    border-radius: 10px;
+}
+
+.customnav .btn-login {
+    border-radius: 30px;
+    background: #af4c008d;
+    color: white;
+    font-weight: bold;
+}
+
+.customnav .btn-singin {
+    border-radius: 30px;
+    border: 1px solid #af4c008d;
+    ;
+    color: rgba(65, 65, 65, 0.387);
+    font-weight: bold;
+}
+
+.navLogo {
+    width: 150px;
+    height: 78px;
+    margin-top: -18px;
+}
+
+.search {
+    background: rgb(237, 237, 237);
+    border-right: 30px solid rgb(255, 200, 0);
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+
+.navList {
+    display: flex;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 780px) {
+    .navList {
+        display: none;
+    }
+
+    .decoration {
+        display: none;
+    }
+
+    .navBtns {
+        margin: 0;
+    }
+}
+
+.search label {
+    font-weight: bold;
+}
+
+.search input {
+    padding: 10px;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    border-radius: 15px;
+}
+
+.search .btn {
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.Card {
+    background: rgb(237, 237, 237);
+    border-right: 30px solid rgb(255, 200, 0);
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+
+.navBtns {
+    margin-right: -18vh;
+}
+
+@media only screen and (max-width: 1300px) {
+
+
+    .navBtns {
+        margin-right: -1vh;
+    }
+}

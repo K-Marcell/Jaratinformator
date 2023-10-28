@@ -1,6 +1,6 @@
 <div class="customnav container">
     <div class="d-flex" style="padding-top: 25px;">
-        <button class="d-block d-md-none btn">
+        <button class="d-block d-md-none btn" style="margin-top: -15px;" onclick="toggle()">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-list"
                 viewBox="0 0 16 16">
                 <path fill-rule="evenodd"
@@ -8,8 +8,7 @@
             </svg>
         </button>
         <img src="../../media/logo.png" alt="Logo" class="navLogo d-none d-md-block">
-
-        <ul class="container navList">
+        <ul class="container navList" id="navList">
             <li class="CnavItem">
                 <div class="">
                     <p>
@@ -60,6 +59,24 @@
             </li>
         </ul>
 
-    </div>
 
+    </div>
 </div>
+<script>
+    var isOpen = false;
+    function toggle() {
+        if (!isOpen) {
+            document.getElementById("navList").style.display = "block";
+            isOpen = true;
+        } else {
+            document.getElementById("navList").style.display = "none";
+            isOpen = false;
+        }
+    }
+    window.addEventListener('resize', function () {
+        document.getElementById("navList").style.display = "flex";
+        isOpen = false;
+    })
+
+
+</script>

@@ -1,10 +1,18 @@
+body {
+    background-image: url('../media/bg.jpg');
+    background-size: cover;
+
+    background-repeat: no-repeat;
+
+}
+
 .customnav li {
     list-style: none;
     margin-right: 30px;
 }
 
 header {
-    background: #977b0031;
+    background: #92929228;
 }
 
 .customnav li div a {
@@ -14,8 +22,12 @@ header {
 
 }
 
+.navList {
+    margin-top: 10px;
+}
+
 .customnav li div .decoration {
-    border: 3px solid #000000;
+    border: 2.4px solid #000000;
     margin-top: -12px;
     border-radius: 10px;
 }
@@ -89,12 +101,13 @@ header {
 }
 
 .Card {
-    background: rgb(237, 237, 237);
+    background: rgb(255, 255, 255);
     border-right: 30px solid rgb(255, 200, 0);
     border-radius: 10px;
     padding: 10px;
     width: 100%;
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    animation: 0.2s ease-out 0s 1 slideInFromLeft;
 }
 
 .navBtns {
@@ -106,5 +119,15 @@ header {
 
     .navBtns {
         margin-right: -1vh;
+    }
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(0);
     }
 }

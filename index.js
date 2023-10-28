@@ -7,6 +7,16 @@ let db = new sqlite.Database("db/menetrend.db", (err) => {
         return console.log(err.message);
     console.log("Connected to webserver database!");
 });
+let taxiDb = new sqlite.Database("db/taxi.db", (err) => {
+    if (err)
+        return console.log(err.message);
+    console.log("Connected to webserver database (Taxi DB)!");
+});
+let telepulsekDb = new sqlite.Database("db/telepulesek.db", (err) => {
+    if (err)
+        return console.log(err.message);
+    console.log("Connected to webserver database (Telepulsek DB)!");
+});
 app.use(express.static('public'));
 app.listen(3000, () => console.log("Server running on port 3000!"));
 
@@ -91,3 +101,40 @@ app.get('/removetrip/:tourid', function (req, res) {
     });
     res.end(`Jarat kitorolve: ${req.params.stopid}`);
 });
+app.get('/ordertaxi/:taxiid/:name/:address/:datetime', function (req, res) {
+    taxiDb.run("INSERT INTO taxi_orders (`taxiId`, `name`, `address`, `dateTime`) VALUES (?, ?, ?, ?)",
+        [req.params.taxiid, req.params.name, req.params.address, req.params.datetime], function (err) {
+            if (err) {
+                return console.log(err);
+            }
+        });
+    res.end(`Sikeres taxi rendeles.`);
+});
+app.get('/addtaxi/:car/:lpn/:driver/', function (req, res) {
+    taxiDb.run("INSERT INTO taxi (`car`, `lpn`, `driver`) VALUES (?, ?, ?)",
+        [req.params.car, req.params.lpn, req.params.driver], function (err) {
+            if (err) {
+                return console.log(err);
+            }
+        });
+    res.end(`Taxi sikeres rigzitese`);
+});
+app.get('/taxiorders', function (req, res) {
+    taxiDb.all("SELECT * FROM taxi_orders", function (err, rows) {
+        if (err) {
+            return console.error(err.message);
+        }
+        res.json(rows);
+    });
+});
+
+// a főoldalos kerséshez kell
+app.get('/telepuleskereses/:data', function (req, res) {
+    telepulsekDb.all(`SELECT * FROM telepulesek WHERE name like '%${req.params.data}%' or zip like '%${req.params.data}%' limit 10`, function (err, rows) {
+        if (err) {
+            return console.error(err.message);
+        }
+        res.json(rows);
+    });
+});
+

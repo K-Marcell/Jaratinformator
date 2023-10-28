@@ -27,6 +27,10 @@ header {
     font-weight: bold;
 }
 
+.Card label {
+    font-weight: bold;
+}
+
 .customnav .btn-singin {
     border-radius: 30px;
     border: 1px solid #af4c008d;

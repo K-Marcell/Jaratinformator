@@ -4,24 +4,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Járatinformátor | Taxi</title>
+    <title>Járatinformátor | Taxi </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 
 </head>
-
-
 <header><%- include('../public/view/layouts/navbar.ejs') %></header>
 
 <body>
-    <h3 class="text-center">Taxi</h3>
+    <div class="container">
+        <div class="m-5">
+            <h4 class="text-center">
+                Taxi Rendelés
+            </h4>
+        </div>
+        <div class="Card p-4">
+            <div class="row">
+                <div class="col-md">
+                    <label>VEZETÉKNÉV</label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="firstName">
+                    </div>
+                </div>
+                <div class="col-md">
+                    <label>KERESZTNÉV</label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="lastName">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md">
+                    <label>IRÁNYÍTÓSZÁM</label>
+                    <div class="input-group mb-3">
+                        <input type="number" class="form-control" id="zip">
+                    </div>
+                </div>
+                <div class="col-md">
+                    <label>TELEPÜLÉS</label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="settlement">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md">
+                    <label>UTCA + HÁZSZÁM</label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="street">
+                    </div>
+                </div>
+                <div class="col-md">
+                    <label>TELEFON</label>
+                    <div class="input-group mb-3">
+                        <input type="number" class="form-control" id="phoneNumber">
+                    </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <button class="btn btn-warning form-control text-light" style="font-weight: bold;"
+                    onclick="order()">Küldés</button>
+            </div>
+        </div>
+    </div>
 
     <script src="../js/script.js"></script>
+    <script src="../js/orderTaxi.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
+
 </body>
 
 </html>

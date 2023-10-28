@@ -1,3 +1,21 @@
 CREATE TABLE menetrend(jaratId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, jaratKezdes INTEGER NOT NULL,  jaratKezd DATE NOT NULL, jaratVeg DATE NOT NULL);
 CREATE TABLE jaratadat(jaratId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, allomasok TEXT NOT NULL);
 CREATE TABLE allomasok(allomasId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, allomasNev TEXT NOT NULL);
+
+
+-- Taxi
+CREATE TABLE taxi_orders (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    taxiId INTEGER NOT NULL,
+    name TEXT,
+    address TEXT,
+    dateTime DATETIME
+);
+CREATE TABLE taxi(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    car TEXT NOT NULL,
+     TEXT,
+    lpn TEXT, --license plate number
+    driver TEXT
+);
+

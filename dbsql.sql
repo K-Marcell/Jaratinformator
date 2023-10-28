@@ -9,7 +9,8 @@ CREATE TABLE taxi_orders (
     taxiId INTEGER NOT NULL,
     name TEXT,
     address TEXT,
-    dateTime DATETIME
+    dateTime DATETIME,
+    phone INTEGER
 );
 CREATE TABLE taxi(
     id INTEGER PRIMARY KEY AUTOINCREMENT,

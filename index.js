@@ -101,9 +101,9 @@ app.get('/removetrip/:tourid', function (req, res) {
     });
     res.end(`Jarat kitorolve: ${req.params.stopid}`);
 });
-app.get('/ordertaxi/:taxiid/:name/:address/:datetime', function (req, res) {
-    taxiDb.run("INSERT INTO taxi_orders (`taxiId`, `name`, `address`, `dateTime`) VALUES (?, ?, ?, ?)",
-        [req.params.taxiid, req.params.name, req.params.address, req.params.datetime], function (err) {
+app.get('/ordertaxi/:taxiid/:name/:address/:phone', function (req, res) {
+    taxiDb.run("INSERT INTO taxi_orders (`taxiId`, `name`, `address`, `phone`) VALUES (?, ?, ?, ?)",
+        [req.params.taxiid, req.params.name, req.params.address, req.params.phone], function (err) {
             if (err) {
                 return console.log(err);
             }
@@ -127,6 +127,14 @@ app.get('/taxiorders', function (req, res) {
         res.json(rows);
     });
 });
+app.get('/getAllTaxi', function (req, res) {
+    taxiDb.all("SELECT * FROM taxi", function (err, rows) {
+        if (err) {
+            return console.error(err.message);
+        }
+        res.json(rows);
+    });
+});
 
 // a főoldalos kerséshez kell
 app.get('/telepuleskereses/:data', function (req, res) {
@@ -137,4 +145,3 @@ app.get('/telepuleskereses/:data', function (req, res) {
         res.json(rows);
     });
 });
-

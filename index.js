@@ -12,7 +12,7 @@ let taxiDb = new sqlite.Database("db/taxi.db", (err) => {
         return console.log(err.message);
     console.log("Connected to webserver database (Taxi DB)!");
 });
-let telepulsekDb = new sqlite.Database("db/telepulesek.db", (err) => {
+let telepulesekDb = new sqlite.Database("db/telepulesek.db", (err) => {
     if (err)
         return console.log(err.message);
     console.log("Connected to webserver database (Telepulsek DB)!");
@@ -130,7 +130,7 @@ app.get('/taxiorders', function (req, res) {
 
 // a főoldalos kerséshez kell
 app.get('/telepuleskereses/:data', function (req, res) {
-    telepulsekDb.all(`SELECT * FROM telepulesek WHERE name like '%${req.params.data}%' or zip like '%${req.params.data}%' limit 10`, function (err, rows) {
+    telepulesekDb.all(`SELECT * FROM telepulesek WHERE name like '%${req.params.data}%' or zip like '%${req.params.data}%' limit 10`, function (err, rows) {
         if (err) {
             return console.error(err.message);
         }

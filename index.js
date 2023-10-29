@@ -39,6 +39,10 @@ app.get("/taxi", function (req, res) {
     res.render("../html/taxi.ejs", {
     });
 });
+app.get("/admin-panel", function (req, res) {
+    res.render("../html/admin-panel.ejs", {
+    });
+});
 
 
 app.get('/createstop/:stopname', function (req, res) {

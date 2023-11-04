@@ -22,7 +22,6 @@ app.listen(3000, () => console.log("Server running on port 3000!"));
 
 
 
-
 app.get("", function (req, res) {
     res.render("../html/index.ejs", {
     });
@@ -45,7 +44,7 @@ app.get("/admin-panel", function (req, res) {
 });
 
 
-app.get('/createstop/:stopname', function (req, res) {
+app.get('/createstop/:stopname', function (req, res) { // Megállóhely hozzáadása
     const stopname = req.params.stopname;
     db.run("INSERT INTO allomasok(allomasNev) VALUES(?);", [stopname], function (err) {
         if (err)
@@ -53,7 +52,7 @@ app.get('/createstop/:stopname', function (req, res) {
     });
     res.end(`Allomas hozzaadva: ${req.params.stopname}`);
 });
-app.get('/addtrip/:startplace/:starttime/:estimatedarrival', function (req, res) { //starttime: 00:00 || estimatedarrival: 00:00
+app.get('/addtrip/:startplace/:starttime/:estimatedarrival', function (req, res) { //Járat hozzáadása: Kezdőhely, starttime: 00:00 || estimatedarrival: 00:00
     const starthour = req.params.starttime.split(":")[0];
     const startminute = req.params.starttime.split(":")[1];
     const etahour = req.params.estimatedarrival.split(":")[0];
@@ -69,32 +68,28 @@ app.get('/addtrip/:startplace/:starttime/:estimatedarrival', function (req, res)
         if (err)
             return console.log(err);
     });
-    db.run("INSERT INTO jaratadat(allomasok) VALUES((SELECT allomasId FROM allomasok WHERE allomasNev = ?))", [startplace], function (err) {
+    db.run("INSERT INTO jaratadat(allomasok) VALUES(?)", [startplace], function (err) {
         if (err)
-            db.run("INSERT INTO allomasok(allomasNev) VALUES(?);", [startplace], function (err) {
-                if (err)
-                    return console.log(err);
-            });
-        db.run("INSERT INTO jaratadat(allomasok) VALUES((SELECT allomasId FROM allomasok WHERE allomasNev = ?))", [startplace], function (err) { });
+            return console.log(err);
     });
     res.end(`Menetrend hozzáadva.`);
 });
-
-app.get('/addstop/:tourid/:stopid', function (req, res) {
-    db.run("UPDATE jaratadat SET allomasok = allomasok||','||? WHERE jaratId=?", [req.params.stopid, req.params.tourid], function (err) {
+app.get('/trips', function(req, res) {
+    db.all("SELECT * FROM jaratadat;", function(err, rows) {
+        if(err) {
+            return console.error(err);
+        }
+        res.json(rows);
+    });
+}); 
+app.get('/updatestops/:tourid/:stops', function (req, res) { // Járathoz kapcsolódó állomások frissítése
+    db.run("UPDATE jaratadat SET allomasok = ? WHERE jaratId=?", [req.params.stops, req.params.tourid], function (err) {
         if (err)
             return console.log(err);
     });
-    res.end(`Allomas hozzaadva: ${req.params.stopid}`);
+    res.end(`Allomasok frissitve a kovetkezo jarathoz: ${req.params.tourid} hozzaadva: ${req.params.stopid}`);
 });
-app.get('/removestop/:tourid/:stopid', function (req, res) {
-    db.run("UPDATE jaratadat SET allomasok = REPLACE(allomasok, ','||?, '') WHERE jaratId=?", [req.params.stopid, req.params.tourid], function (err) {
-        if (err)
-            return console.log(err);
-    });
-    res.end(`Allomas kitorolve: ${req.params.stopid}`);
-});
-app.get('/removetrip/:tourid', function (req, res) {
+app.get('/removetrip/:tourid', function (req, res) { // Járat törlése
     db.run("DELETE FROM menetrend WHERE jaratId=?", [req.params.tourid], function (err) {
         if (err)
             return console.log(err);
@@ -105,7 +100,7 @@ app.get('/removetrip/:tourid', function (req, res) {
     });
     res.end(`Jarat kitorolve: ${req.params.stopid}`);
 });
-app.get('/ordertaxi/:taxiid/:name/:address/:phone', function (req, res) {
+app.get('/ordertaxi/:taxiid/:name/:address/:phone', function (req, res) { // Taxi rendelése
     taxiDb.run("INSERT INTO taxi_orders (`taxiId`, `name`, `address`, `phone`) VALUES (?, ?, ?, ?)",
         [req.params.taxiid, req.params.name, req.params.address, req.params.phone], function (err) {
             if (err) {
@@ -114,16 +109,16 @@ app.get('/ordertaxi/:taxiid/:name/:address/:phone', function (req, res) {
         });
     res.end(`Sikeres taxi rendeles.`);
 });
-app.get('/addtaxi/:car/:lpn/:driver/', function (req, res) {
+app.get('/addtaxi/:car/:lpn/:driver/', function (req, res) { // Taxi forgalombahelyezése
     taxiDb.run("INSERT INTO taxi (`car`, `lpn`, `driver`) VALUES (?, ?, ?)",
         [req.params.car, req.params.lpn, req.params.driver], function (err) {
             if (err) {
                 return console.log(err);
             }
         });
-    res.end(`Taxi sikeres rigzitese`);
+    res.end(`Taxi sikeres rögzitese`);
 });
-app.get('/taxiorders', function (req, res) {
+app.get('/taxiorders', function (req, res) { // Taxis rendelések listázáas
     taxiDb.all("SELECT * FROM taxi_orders", function (err, rows) {
         if (err) {
             return console.error(err.message);
@@ -131,7 +126,7 @@ app.get('/taxiorders', function (req, res) {
         res.json(rows);
     });
 });
-app.get('/getAllTaxi', function (req, res) {
+app.get('/getAllTaxi', function (req, res) { // Forgalomban lévő Taxik listázása
     taxiDb.all("SELECT * FROM taxi", function (err, rows) {
         if (err) {
             return console.error(err.message);

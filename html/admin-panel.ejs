@@ -10,12 +10,44 @@
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-
-
 </head>
 
 <body>
-
+    <h1>Járat hozzáadás</h1>
+    <input type="time" name="kezdes" id="kezd" disabled>
+    <input type="time" name="befejezes" id="befejez" disabled>
+    <input type="button" value="Megállóhely hozzáadása" onclick="addStop();">
+    <ol id="stops">
+    </ol>
+    <input type="button" value="Közzététel" onclick="finalize();">
+    <script>
+        function addStop() {
+            document.getElementById('stops').innerHTML += "<li><input type='text' name='' id='' placeholder='Megállóhely'><input type='time' name='befejezes' id=''><input type='button' value='Megállóhely törlése' onclick='removeStop(this);''></li>";
+        }
+        function removeStop(val) {
+            val.parentNode.remove();
+        }
+        function finalize() {
+            var elements = document.getElementById('stops').children;
+            var s = elements[0].children[0].value;
+            var dt = elements[0].children[1].value;
+            for(var k = 1; k < elements.length; k++) {
+                s += `,${elements[k].children[0].value}`;
+            }
+            for(var k = 1; k < elements.length; k++) {
+                dt += `,${elements[k].children[1].value}`;
+            }
+            console.log(s);
+            console.log(dt);
+        
+            var start = elements[0].children[1].value;
+            var end = elements[elements.length-1].children[1].value;
+            document.getElementById('kezd').value = start;
+            document.getElementById('befejez').value = end;
+            window.location = `http://jaratinformator.ddns.net:3000/addtrip/${start}/${end}/${s}/${dt}`;
+        }
+        
+    </script>
 </body>
 
 

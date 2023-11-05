@@ -6,7 +6,6 @@ try {
 }
 
 function search(value, id, ids) {
-    console.log("hi");
     if (value.length === 0) {
         var list = document.getElementById(id);
         for(var k = 0; k < list.children.length; k++) {
@@ -23,7 +22,6 @@ function search(value, id, ids) {
         if (list.children[k].children[0].innerHTML.toLowerCase().includes(value.toLowerCase())){
             var ele = list.children[k].children[0];
             ele.style.display = "block";
-            console.log("hi");
         }
         else{
             var ele = list.children[k].children[0];
@@ -41,6 +39,5 @@ function keres() {
     }
     document.getElementById("fromWhere").innerHTML = fromWhere.value;
     document.getElementById("where").innerHTML = where.value;
-    // $("#list").append(getCard(a,b,c,d))
 
 }

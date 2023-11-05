@@ -74,26 +74,25 @@ app.get('/createstop/:stopname', function (req, res) { // Megállóhely hozzáad
     });
     res.end(`Allomas hozzaadva: ${req.params.stopname}`);
 });
-app.get('/addtrip/:startplace/:starttime/:estimatedarrival', function (req, res) { //Járat hozzáadása: Kezdőhely, starttime: 00:00 || estimatedarrival: 00:00
+app.get('/addtrip/:starttime/:estimatedarrival/:stops/:stoptimes', function (req, res) { //Járat hozzáadása: Kezdőhely, starttime: 00:00 || estimatedarrival: 00:00
     const starthour = req.params.starttime.split(":")[0];
     const startminute = req.params.starttime.split(":")[1];
     const etahour = req.params.estimatedarrival.split(":")[0];
     const etaminute = req.params.estimatedarrival.split(":")[1];
-    const startplace = req.params.startplace;
-    let starttime = new Date();
-    starttime.setHours(parseInt(starthour) + 2);
-    starttime.setMinutes(parseInt(startminute));
-    let etatime = new Date();
-    etatime.setHours(parseInt(etahour) + 2);
-    etatime.setMinutes(parseInt(etaminute));
-    db.run("INSERT INTO menetrend(jaratKezdes, jaratKezd, jaratVeg) VALUES(?, ?, ?)", [startplace, starttime.toISOString().slice(0, 19).replace('T', ' '), etatime.toISOString().slice(0, 19).replace('T', ' ')], function (err) {
+    const stops = req.params.stops;
+    const stoptimes = req.params.stoptimes;
+    let starttime = req.params.starttime;
+    let etatime = req.params.estimatedarrival;
+    db.run("INSERT INTO menetrend DEFAULT VALUES;", function (err) {
         if (err)
             return console.log(err);
     });
-    db.run("INSERT INTO jaratadat(allomasok) VALUES(?)", [startplace], function (err) {
+    db.run("INSERT INTO jaratadat(jaratKezd, jaratVeg, allomasok, allomasErkezes) VALUES(?, ?, ?, ?)", [starttime, etatime, stops, stoptimes], function (err) {
         if (err)
             return console.log(err);
     });
+    getAllPlaces();
+    getAllTours();
     res.end(`Menetrend hozzáadva.`);
 });
 app.get('/trips', function(req, res) {

@@ -11,7 +11,7 @@ function order() {
         settlement.length === 0 || street.length === 0 | phoneNumber.toString().length === 0 || taxiid == -1) {
         return alert("Hiányzó adatok!");
     }
-    var url = "http://localhost:3000/ordertaxi/" +
+    var url = "http://jaratinformator.ddns.net:3000/ordertaxi/" +
         taxiid + "/" + firstName + " " + lastName + "/" + zip + " " + settlement + " " + street + "/" + phoneNumber;
     $.ajax({
         type: "GET",
@@ -45,7 +45,7 @@ document.getElementById("zip").addEventListener("input", function () {
 function loadDrivers() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:3000/getAllTaxi",
+        url: "http://jaratinformator.ddns.net:3000/getAllTaxi",
         success: function (data) {
             $("#drivers").empty();
             data.forEach(i => {

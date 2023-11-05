@@ -14,15 +14,15 @@
 
 <body>
     <h1>Járat hozzáadás</h1>
-    <input type="time" name="kezdes" id="kezd" disabled>
-    <input type="time" name="befejezes" id="befejez" disabled>
-    <input type="button" value="Megállóhely hozzáadása" onclick="addStop();">
-    <ol id="stops">
+    <input type="time" name="kezdes" id="kezd" class="adminelement" disabled>
+    <input type="time" name="befejezes" id="befejez" class="adminelement" disabled>
+    <input type="button" value="Megállóhely hozzáadása" class="adminelement" onclick="addStop();">
+    <ol id="stops" class="adminelement" >
     </ol>
     <input type="button" value="Közzététel" onclick="finalize();">
     <script>
         function addStop() {
-            document.getElementById('stops').innerHTML += "<li><input type='text' name='' id='' placeholder='Megállóhely'><input type='time' name='befejezes' id=''><input type='button' value='Megállóhely törlése' onclick='removeStop(this);''></li>";
+            document.getElementById('stops').innerHTML += "<li class='adminelement' ><input type='text' name='' id='' placeholder='Megállóhely'><input type='time' name='befejezes' id=''><input type='button' value='Megállóhely törlése' onclick='removeStop(this);''></li>";
         }
         function removeStop(val) {
             val.parentNode.remove();

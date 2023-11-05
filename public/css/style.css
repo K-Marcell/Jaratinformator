@@ -156,3 +156,54 @@ a {
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
     border-radius: 10px;
 }
+
+.busStop {
+    background: #ebebeb;
+    padding: 20px;
+    border-radius: 10px;
+    border-bottom: 2px solid var(--mainColor);
+}
+
+.busStop .fromWhere {
+    font-weight: bold;
+}
+
+.busStop .settlement {
+    font-family: monospace;
+}
+
+.timeLine {
+    display: flex;
+    margin-top: 15px;
+}
+
+.timeLine .cyl {
+    border: 10px solid var(--mainColor);
+    padding: 2px;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.timeLine .cyl:nth-child(1) {
+    margin-right: -10px;
+}
+
+.timeLine .cyl {
+    margin-left: -10px;
+}
+
+
+.timeLine .line {
+    border: 5px solid var(--mainColor);
+    width: 30vh;
+    height: 3px;
+    margin-top: 7px;
+
+
+}
+
+.time {
+    font-family: monospace;
+    color: var(--mainColor);
+    font-weight: bold;
+}

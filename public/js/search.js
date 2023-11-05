@@ -39,22 +39,13 @@ function search(value) {
     });
 }
 function keres() {
-    var startDate = document.getElementById("startDate");
+    var startDate = document.getElementById("datetime");
 
     if (fromWhere.length === 0 || where.length === 0) {
         return $("#list").append(`<div class="alert alert-danger" role="alert">Minden mező kitöltendő!</div>`);
     }
-    $.ajax({
-        type: "GET",
-        url: "http://localhost:3000/trips",
-        success: function (data) {
-            $("#list").empty();
+    // $("#list").append(getCard(a,b,c,d))
 
-            data.forEach(i => {
-
-            });
-        },
-    });
 }
 function getCard(fromWhere, startDate, arrivalDate, where) {
     return `

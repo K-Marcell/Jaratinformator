@@ -207,3 +207,8 @@ a {
     color: var(--mainColor);
     font-weight: bold;
 }
+
+p.info {
+    border-left: thick solid gray;
+    padding-left:1%;
+}

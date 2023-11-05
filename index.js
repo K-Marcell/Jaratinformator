@@ -1,7 +1,8 @@
 const express = require("express");
 const sqlite = require("sqlite3").verbose();
 const app = express();
-
+dbplaces = null;
+dbtours = null;
 let db = new sqlite.Database("db/menetrend.db", (err) => {
     if (err)
         return console.log(err.message);
@@ -17,13 +18,34 @@ let telepulesekDb = new sqlite.Database("db/telepulesek.db", (err) => {
         return console.log(err.message);
     console.log("Connected to webserver database (Telepulsek DB)!");
 });
+function getAllPlaces() {
+    telepulesekDb.all("SELECT * FROM telepulesek", function(err, rows) {
+        if (err)
+            return console.error(err);
+        savePlaces(rows);
+    });
+}
+function getAllTours() {
+    db.all("SELECT * FROM jaratadat;", function(err, rows) {
+        if (err)
+            return console.error(err);
+        saveTours(rows);
+    });
+}
+function saveTours(rows) {
+    dbtours = rows;
+}
+function savePlaces(rows) {
+    dbplaces = rows;
+}
 app.use(express.static('public'));
 app.listen(3000, () => console.log("Server running on port 3000!"));
-
-
-
+getAllPlaces();
+getAllTours();
 app.get("", function (req, res) {
     res.render("../html/index.ejs", {
+        places: dbplaces,
+        tours: dbtours
     });
 });
 app.get("/contact", function (req, res) {
